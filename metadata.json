@@ -1,0 +1,6 @@
+{
+  "name": "Walimatulurus - Jemputan Kahwin Digital & RSVP",
+  "description": "Laman web jemputan kahwin digital eksklusif dan sistem RSVP interaktif berkonsepkan editorial mewah minimalis dengan kalendar, navigasi venue, kod pakaian, salam kaut, dan kira detik.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
