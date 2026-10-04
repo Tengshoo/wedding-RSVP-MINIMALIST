@@ -19,6 +19,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: "Kalendar", href: "#kalendar" },
     { label: "Lokasi", href: "#lokasi" },
     { label: "Atur Cara", href: "#atur-cara" },
+    { label: "Galeri", href: "#galeri" },
     { label: "Kod Pakaian", href: "#kod-pakaian" },
     { label: "Salam Kaut", href: "#salam-kaut" },
     { label: "Ucapan", href: "#ucapan" },

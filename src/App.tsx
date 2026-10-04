@@ -9,6 +9,7 @@ import { HeroSection } from './components/HeroSection';
 import { OpeningCalendarSection } from './components/OpeningCalendarSection';
 import { VenueSection } from './components/VenueSection';
 import { TimelineSection } from './components/TimelineSection';
+import { GallerySection } from './components/GallerySection';
 import { DressCodeSection } from './components/DressCodeSection';
 import { AdditionalDetailsSection } from './components/AdditionalDetailsSection';
 import { ContactSection } from './components/ContactSection';
@@ -96,6 +97,9 @@ export default function App() {
 
         {/* 4. Tentative / Event Timeline & Candid Moments */}
         <TimelineSection />
+
+        {/* Galeri Foto & Memori Indah (Masonry Grid with Lightbox) */}
+        <GallerySection />
 
         {/* 5. Dress Code & Color Swatch Palette */}
         <DressCodeSection />
