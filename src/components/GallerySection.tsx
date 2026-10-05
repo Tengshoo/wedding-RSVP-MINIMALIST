@@ -309,24 +309,24 @@ export const GallerySection: React.FC = () => {
   const activePhoto = selectedPhotoIndex !== null ? GALLERY_PHOTOS[selectedPhotoIndex] : null;
 
   return (
-    <section id="galeri" className="py-12 sm:py-20 px-4 max-w-4xl mx-auto">
-      <div className="bg-white dark:bg-stone-850 rounded-3xl p-6 sm:p-10 shadow-sm border border-stone-200/80 dark:border-stone-800">
-        
-        {/* Section Header */}
-        <div className="text-center mb-10">
-          <p className="text-xs uppercase tracking-[0.25em] text-[#8D735C] dark:text-[#C5B5A3] font-sans-clean font-medium mb-1">
-            Galeri Memori Indah
-          </p>
-          <h2 className="font-serif-luxury text-3xl sm:text-4xl text-stone-900 dark:text-stone-100">
-            Koleksi Foto & Kenangan
-          </h2>
-          <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-2 font-sans-clean max-w-md mx-auto">
-            Bingkisan potret manis sepanjang fasa perkenalan, pertunangan, dan persiapan menjelang hari bahagia.
-          </p>
-        </div>
+    <section id="galeri" className="py-20 sm:py-32 px-6 sm:px-12 lg:px-20 max-w-5xl mx-auto border-b border-[#DED6C9]/60 dark:border-[#2A2722]/60">
+      
+      {/* Section Kicker */}
+      <div className="text-left mb-12 sm:mb-16">
+        <p className="text-[11px] font-sans-clean uppercase tracking-[0.35em] text-[#716C64] dark:text-[#B7A58A] mb-3">
+          07 / Koleksi Memori
+        </p>
+        <h2 className="font-serif-luxury text-4xl sm:text-6xl text-[#25231F] dark:text-[#F7F3EB] font-normal tracking-tight">
+          The Memories
+        </h2>
+        <p className="font-sans-clean text-xs sm:text-sm text-[#716C64] dark:text-[#B7A58A] leading-relaxed max-w-xl pt-3">
+          Bingkisan potret manis sepanjang fasa perkenalan, pertunangan, dan persiapan menjelang hari bahagia Atif & Isma.
+        </p>
+        <div className="h-[1px] w-20 bg-[#B7A58A] mt-6" />
+      </div>
 
-        {/* Responsive Masonry / Column Grid (2 cols on mobile/tablet, 3 cols on desktop) */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+      {/* Responsive Masonry / Column Grid (2 cols on mobile/tablet, 3 cols on desktop) */}
+      <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
           {GALLERY_PHOTOS.map((photo, index) => {
             return (
               <div
@@ -387,13 +387,11 @@ export const GallerySection: React.FC = () => {
         </div>
 
         {/* Bottom Helper */}
-        <div className="mt-8 pt-6 border-t border-stone-100 dark:border-stone-800 text-center">
-          <p className="text-xs text-stone-400 dark:text-stone-500 font-sans-clean">
+        <div className="mt-8 pt-6 border-t border-[#DED6C9]/60 dark:border-[#2A2722]/60 text-center">
+          <p className="text-xs text-[#716C64] dark:text-[#B7A58A] font-sans-clean">
             Sentuh atau klik mana-mana foto untuk paparan skrin penuh dan kisah di sebaliknya.
           </p>
         </div>
-
-      </div>
 
       {/* Lightbox Modal */}
       {selectedPhotoIndex !== null && activePhoto && (
@@ -410,13 +408,13 @@ export const GallerySection: React.FC = () => {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Top Bar Controls */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-stone-200 dark:border-stone-800 bg-[#FAF8F5] dark:bg-stone-900 shrink-0">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-[#DED6C9] dark:border-[#2F2C27] bg-[#F7F3EB] dark:bg-[#1E1C18] shrink-0">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono font-medium text-stone-500 dark:text-stone-400">
+                <span className="text-xs font-mono font-medium text-[#716C64] dark:text-[#B7A58A]">
                   {selectedPhotoIndex + 1} / {GALLERY_PHOTOS.length}
                 </span>
-                <span className="text-stone-300 dark:text-stone-700">·</span>
-                <span className="text-xs uppercase tracking-wider text-[#8D735C] dark:text-[#C5B5A3] font-sans-clean font-semibold">
+                <span className="text-[#DED6C9] dark:text-[#332F28]">·</span>
+                <span className="text-xs uppercase tracking-wider text-[#B7A58A] font-sans-clean font-semibold">
                   {activePhoto.category}
                 </span>
               </div>
@@ -425,7 +423,7 @@ export const GallerySection: React.FC = () => {
               <button
                 onClick={closeLightbox}
                 type="button"
-                className="p-1.5 rounded-full text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white hover:bg-stone-200/50 dark:hover:bg-stone-800 transition-colors cursor-pointer"
+                className="p-1.5 rounded-full text-[#716C64] hover:text-[#25231F] dark:hover:text-[#F7F3EB] transition-colors cursor-pointer"
                 title="Tutup Paparan (Esc)"
                 aria-label="Tutup Paparan"
               >
@@ -434,7 +432,7 @@ export const GallerySection: React.FC = () => {
             </div>
 
             {/* Main Image Display Area */}
-            <div className="relative flex-1 bg-stone-950 flex items-center justify-center overflow-hidden min-h-[320px] max-h-[58vh]">
+            <div className="relative flex-1 bg-[#171613] flex items-center justify-center overflow-hidden min-h-[320px] max-h-[58vh]">
               <div className="w-full h-full flex items-center justify-center p-2 sm:p-4">
                 <div className="max-w-md w-full aspect-auto max-h-[54vh] rounded-xl overflow-hidden shadow-2xl">
                   {activePhoto.svgContent}
@@ -448,7 +446,7 @@ export const GallerySection: React.FC = () => {
                   showPrevPhoto();
                 }}
                 type="button"
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-xs transition-colors cursor-pointer"
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-xs transition-colors cursor-pointer"
                 title="Foto Sebelumnya (Panah Kiri)"
                 aria-label="Foto Sebelumnya"
               >
@@ -461,7 +459,7 @@ export const GallerySection: React.FC = () => {
                   showNextPhoto();
                 }}
                 type="button"
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-xs transition-colors cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-xs transition-colors cursor-pointer"
                 title="Foto Seterusnya (Panah Kanan)"
                 aria-label="Foto Seterusnya"
               >
@@ -470,25 +468,25 @@ export const GallerySection: React.FC = () => {
             </div>
 
             {/* Bottom Caption & Story Details */}
-            <div className="p-5 sm:p-6 bg-white dark:bg-stone-900 space-y-2 shrink-0">
+            <div className="p-5 sm:p-6 bg-[#F7F3EB] dark:bg-[#1E1C18] space-y-2 shrink-0 border-t border-[#DED6C9] dark:border-[#2F2C27]">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                <h3 id="lightbox-title" className="font-serif-luxury text-xl sm:text-2xl font-medium text-stone-900 dark:text-stone-100">
+                <h3 id="lightbox-title" className="font-serif-luxury text-xl sm:text-2xl font-medium text-[#25231F] dark:text-[#F7F3EB]">
                   {activePhoto.title}
                 </h3>
-                <div className="flex items-center gap-3 text-xs text-stone-400 font-sans-clean">
+                <div className="flex items-center gap-3 text-xs text-[#716C64] dark:text-[#B7A58A] font-sans-clean">
                   <span className="flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-[#8D735C]" />
+                    <MapPin className="w-3.5 h-3.5 text-[#B7A58A]" />
                     <span>{activePhoto.location}</span>
                   </span>
                   <span>·</span>
                   <span className="flex items-center gap-1">
-                    <Calendar className="w-3.5 h-3.5 text-[#8D735C]" />
+                    <Calendar className="w-3.5 h-3.5 text-[#B7A58A]" />
                     <span>{activePhoto.date}</span>
                   </span>
                 </div>
               </div>
 
-              <p className="font-sans-clean text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed pt-1">
+              <p className="font-sans-clean text-xs sm:text-sm text-[#716C64] dark:text-[#B7A58A] leading-relaxed pt-1">
                 {activePhoto.caption}
               </p>
             </div>

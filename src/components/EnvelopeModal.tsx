@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Sparkles, Volume2, ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { WEDDING_DATA } from '../data/weddingData';
 import { romanticAudio } from '../utils/romanticAudio';
 
@@ -14,103 +14,148 @@ export const EnvelopeModal: React.FC<EnvelopeModalProps> = ({
   onOpenInvitation,
   guestName = "Tetamu Kehormat Sekeluarga",
 }) => {
-  const [isOpening, setIsOpening] = useState(false);
+  const [step, setStep] = useState<'initial' | 'opening' | 'revealed'>('initial');
 
   if (!isOpen) return null;
 
-  const handleOpenClick = () => {
-    setIsOpening(true);
-    // Start ambient romantic music on first user intent
-    romanticAudio.play();
+  const handleOpen = () => {
+    if (step !== 'initial') return;
+    setStep('opening');
+    
+    // Optional gentle music trigger
+    try {
+      romanticAudio.play();
+    } catch {
+      // Audio autoplay policy handled
+    }
+
     setTimeout(() => {
-      onOpenInvitation();
-      setIsOpening(false);
-    }, 850);
+      setStep('revealed');
+      setTimeout(() => {
+        onOpenInvitation();
+      }, 700);
+    }, 900);
+  };
+
+  const handleSkip = () => {
+    onOpenInvitation();
   };
 
   return (
     <div
       role="dialog"
       aria-modal="true"
-      aria-labelledby="envelope-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/75 backdrop-blur-md transition-opacity duration-500"
+      aria-labelledby="invitation-opening-title"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#F7F3EB]/98 dark:bg-[#171613]/98 backdrop-blur-xl transition-all duration-700 overflow-hidden select-none"
     >
-      <div
-        className={`relative w-full max-w-md bg-[#FAF8F5] dark:bg-[#201E1B] rounded-3xl p-6 sm:p-8 shadow-2xl border border-stone-200/80 dark:border-stone-800 text-center transition-all duration-700 transform ${
-          isOpening ? 'scale-105 opacity-0' : 'scale-100 opacity-100'
-        }`}
-      >
-        {/* Subtle decorative corners */}
-        <div className="absolute top-4 left-4 w-6 h-6 border-t border-l border-stone-300 dark:border-stone-700 pointer-events-none" />
-        <div className="absolute top-4 right-4 w-6 h-6 border-t border-r border-stone-300 dark:border-stone-700 pointer-events-none" />
-        <div className="absolute bottom-4 left-4 w-6 h-6 border-b border-l border-stone-300 dark:border-stone-700 pointer-events-none" />
-        <div className="absolute bottom-4 right-4 w-6 h-6 border-b border-r border-stone-300 dark:border-stone-700 pointer-events-none" />
+      {/* Top Bar with SKIP Button */}
+      <div className="absolute top-6 right-6 sm:top-8 sm:right-8 z-30">
+        <button
+          onClick={handleSkip}
+          type="button"
+          className="text-[11px] font-sans-clean tracking-[0.25em] uppercase text-[#716C64] dark:text-[#B7A58A] hover:text-[#25231F] dark:hover:text-[#F7F3EB] py-2 px-4 rounded-full border border-[#DED6C9] dark:border-[#2F2C27] hover:border-[#B7A58A] transition-all cursor-pointer"
+        >
+          Langkau / Skip
+        </button>
+      </div>
 
-        {/* Envelope Top Header */}
-        <div className="space-y-2 mb-6">
-          <p className="text-[11px] tracking-[0.25em] uppercase font-sans-clean text-stone-500 dark:text-stone-400">
-            Jemputan Rasmi Walimatulurus
+      {/* Centerpiece Experience */}
+      <div className="relative w-full max-w-lg mx-auto flex flex-col items-center justify-center text-center px-4">
+        
+        {/* Monogram Seal & Header */}
+        <div
+          className={`transition-all duration-700 ${
+            step === 'revealed' ? 'opacity-0 -translate-y-6 scale-95' : 'opacity-100 translate-y-0 scale-100'
+          }`}
+        >
+          <p className="text-[10px] sm:text-xs font-sans-clean uppercase tracking-[0.35em] text-[#716C64] dark:text-[#B7A58A] mb-3">
+            Walimatulurus
           </p>
-          <h2 id="envelope-title" className="font-serif-luxury text-3xl sm:text-4xl text-stone-800 dark:text-stone-100 font-normal">
-            {WEDDING_DATA.couple.shortNames}
-          </h2>
-          <div className="flex items-center justify-center gap-2 text-xs text-stone-400">
-            <span>{WEDDING_DATA.event.dateFormatted}</span>
-            <span>·</span>
-            <span>Kuala Lumpur</span>
-          </div>
+          <h1
+            id="invitation-opening-title"
+            className="font-serif-luxury text-3xl sm:text-4xl text-[#25231F] dark:text-[#F7F3EB] tracking-wide font-normal mb-2"
+          >
+            {WEDDING_DATA.couple.groom} & {WEDDING_DATA.couple.bride}
+          </h1>
+          <p className="text-xs font-sans-clean text-[#716C64] dark:text-[#B7A58A] tracking-wider mb-8">
+            {WEDDING_DATA.event.dateFormatted}
+          </p>
         </div>
 
-        {/* Wax Seal & Envelope graphic representation */}
-        <div className="my-8 relative flex flex-col items-center justify-center">
-          <div className="w-56 h-36 bg-[#F3EFEA] dark:bg-[#2A2723] rounded-2xl border border-stone-300/80 dark:border-stone-700 relative shadow-inner flex flex-col items-center justify-center p-4 overflow-hidden">
-            {/* Triangular envelope fold outline */}
-            <div className="absolute top-0 left-0 right-0 h-16 border-b border-stone-300/60 dark:border-stone-700/60 transform origin-top" />
-            
-            {/* Dedicated recipient badge */}
-            <div className="z-10 bg-white/90 dark:bg-stone-900/90 px-3.5 py-1.5 rounded-lg border border-stone-200 dark:border-stone-800 shadow-sm mt-4 max-w-[90%]">
-              <p className="text-[10px] text-stone-400 uppercase tracking-widest font-sans">Khas Buat</p>
-              <p className="text-xs font-serif-luxury font-medium text-stone-800 dark:text-stone-200 truncate">
+        {/* Bespoke Tactile Envelope */}
+        <div
+          className={`relative w-72 sm:w-88 h-48 sm:h-56 my-2 perspective-[1000px] transition-all duration-700 ${
+            step === 'revealed' ? 'scale-110 opacity-0 -translate-y-12' : 'scale-100 opacity-100'
+          }`}
+        >
+          {/* Main Envelope Body */}
+          <div className="absolute inset-0 bg-[#EFECE4] dark:bg-[#201E1A] rounded-2xl border border-[#DED6C9] dark:border-[#2F2C27] shadow-2xl overflow-hidden flex flex-col justify-end p-5">
+            {/* Triangular Flap Lines */}
+            <div
+              className={`absolute top-0 left-0 right-0 h-28 bg-[#E7DEC8] dark:bg-[#292621] border-b border-[#DED6C9] dark:border-[#38332B] origin-top transition-transform duration-700 shadow-sm ${
+                step !== 'initial' ? '[transform:rotateX(180deg)] opacity-20' : '[transform:rotateX(0deg)]'
+              }`}
+              style={{
+                clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
+              }}
+            />
+
+            {/* Inset Letter Card (sliding up on open) */}
+            <div
+              className={`absolute left-4 right-4 bg-[#F7F3EB] dark:bg-[#1A1815] rounded-xl p-4 border border-[#DED6C9]/80 dark:border-[#332F28] shadow-md transition-all duration-700 ${
+                step !== 'initial'
+                  ? '-translate-y-24 shadow-2xl scale-102 opacity-100'
+                  : 'translate-y-4 opacity-80'
+              }`}
+            >
+              <p className="text-[9px] font-sans-clean uppercase tracking-[0.25em] text-[#716C64] dark:text-[#B7A58A] text-center mb-1">
+                Khas Buat
+              </p>
+              <p className="font-serif-luxury text-sm font-medium text-[#25231F] dark:text-[#F7F3EB] text-center truncate">
                 {guestName}
               </p>
             </div>
           </div>
 
-          {/* Golden Wax Seal with Monogram */}
+          {/* Golden Wax Seal Button */}
           <button
-            onClick={handleOpenClick}
+            onClick={handleOpen}
+            disabled={step !== 'initial'}
             type="button"
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-gradient-to-br from-[#8D735C] via-[#6F5744] to-[#503E30] text-[#F9F7F3] shadow-xl border-2 border-[#C5B5A3]/60 flex flex-col items-center justify-center hover:scale-105 active:scale-95 transition-transform cursor-pointer group"
-            title="Tekan untuk buka jemputan"
+            className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-gradient-to-br from-[#B7A58A] via-[#8D735C] to-[#5A3825] text-[#F7F3EB] shadow-2xl border-2 border-[#E7DEC8]/80 flex flex-col items-center justify-center cursor-pointer transition-all duration-500 group z-20 ${
+              step !== 'initial' ? 'scale-125 opacity-0 rotate-12' : 'hover:scale-108 active:scale-95'
+            }`}
+            title="Sentuh untuk buka jemputan"
           >
-            <span className="font-serif-luxury font-bold text-sm tracking-widest text-[#F9F7F3] group-hover:tracking-wider transition-all">
+            <span className="font-serif-luxury font-bold text-xs sm:text-sm tracking-widest text-[#F7F3EB] group-hover:tracking-wider transition-all">
               {WEDDING_DATA.couple.initials}
             </span>
-            <div className="w-6 h-[1px] bg-[#E7DEC8]/40 my-0.5" />
-            <span className="text-[8px] uppercase tracking-wider text-[#E7DEC8]/80">Buka</span>
+            <span className="text-[7px] tracking-widest uppercase text-[#E7DEC8] mt-0.5">
+              BUKA
+            </span>
           </button>
         </div>
 
-        {/* Action description & Open CTA */}
-        <div className="space-y-4 mt-6">
-          <p className="text-xs text-stone-500 dark:text-stone-400 font-sans-clean leading-relaxed px-4">
-            Dengan penuh rasa kesyukuran, kami menjemput anda meraikan ikatan suci perkahwinan kami.
+        {/* Tap Action Helper */}
+        <div
+          className={`mt-8 space-y-3 transition-all duration-500 ${
+            step === 'revealed' ? 'opacity-0' : 'opacity-100'
+          }`}
+        >
+          <p className="text-xs font-sans-clean text-[#716C64] dark:text-[#B7A58A] tracking-wide">
+            Sentuh mohor lakri emas untuk membuka undangan
           </p>
 
           <button
-            onClick={handleOpenClick}
+            onClick={handleOpen}
             type="button"
-            className="w-full py-3.5 px-6 rounded-2xl bg-[#2C2B2A] hover:bg-[#1A1918] dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-900 font-sans-clean text-xs font-semibold tracking-wider uppercase transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer"
+            className="inline-flex items-center gap-2 py-2.5 px-6 rounded-full bg-[#25231F] dark:bg-[#F7F3EB] text-[#F7F3EB] dark:text-[#25231F] text-xs font-sans-clean font-medium tracking-wider uppercase shadow-md hover:shadow-lg hover:scale-102 transition-all cursor-pointer"
           >
             <span>Buka Undangan</span>
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </button>
-
-          <div className="flex items-center justify-center gap-1.5 text-[11px] text-stone-400 dark:text-stone-500">
-            <Volume2 className="w-3.5 h-3.5" />
-            <span>Muzik alunan romantis akan dimainkan</span>
-          </div>
         </div>
+
       </div>
     </div>
   );
