@@ -4,51 +4,68 @@ Laman web jemputan perkahwinan digital eksklusif dan sistem RSVP interaktif berk
 
 ---
 
-## 🚀 Panduan Deploy Menggunakan GitHub (Langkah Demi Langkah)
+## 🚀 Panduan Menerbitkan (Deploy) Terus dari Cawangan `main` (Tanpa GitHub Actions)
 
-Projek ini telah dikonfigurasi secara lengkap dengan fail **GitHub Actions Workflow** (`.github/workflows/deploy.yml`) dan tetapan *relative path* (`base: './'`) dalam `vite.config.ts`, membolehkan anda menerbitkan laman web ini ke **GitHub Pages** secara percuma dalam masa 2 minit!
+Projek ini telah dikonfigurasi khas untuk diterbitkan terus daripada cawangan **`main`** menggunakan pilihan folder **/docs** rasmi GitHub Pages tanpa memerlukan sebarang GitHub Actions.
 
 ---
 
-### Kaedah 1: Menggunakan GitHub Actions (Disyorkan & Automatik)
+### Langkah Demi Langkah:
 
-#### Langkah 1: Buat Repositori Baharu di GitHub
-1. Layari [GitHub.com](https://github.com) dan log masuk ke akaun anda.
-2. Klik butang **New repository** (atau tanda `+` di penjuru atas).
-3. Berikan nama untuk repositori anda (contoh: `walimatulurus` atau `kad-kahwin-digital`).
-4. Pastikan pilihan **Public** dipilih.
-5. Klik **Create repository**.
-
-#### Langkah 2: Muat Naik / Tolak (Push) Kod ke GitHub
-Buka terminal di dalam folder projek ini dan jalankan arahan berikut:
+#### 1. Bina Fail Produksi (Build ke folder `/docs`)
+Projek ini telah siap dibina ke dalam folder `docs/`. Setiap kali anda membuat perubahan pada kod sumber (`src/`), anda hanya perlu jalankan arahan:
 
 ```bash
-# 1. Inisialisasi git (jika belum ada)
+npm run build
+```
+*(Arahan ini membina aplikasi dan menyimpan fail HTML, CSS, JavaScript, `.nojekyll`, dan `404.html` terus ke dalam folder `/docs`).*
+
+---
+
+#### 2. Tolak (Push) Semua Kod dan Folder `docs` ke GitHub
+
+Buka terminal dan jalankan arahan berikut:
+
+```bash
+# Inisialisasi git (jika belum dibuat)
 git init
 
-# 2. Tambah semua fail projek
+# Tambah semua fail (termasuk folder docs)
 git add .
 
-# 3. Buat commit pertama
-git commit -m "Jemputan Kahwin Digital & RSVP Daniel & Iman"
+# Buat commit
+git commit -m "Deploy jemputan kahwin dari cawangan main"
 
-# 4. Namakan cawangan utama sebagai main
+# Pastikan nama cawangan utama ialah main
 git branch -M main
 
-# 5. Sambungkan ke repositori GitHub anda (gantikan dengan URL repositori anda)
+# Sambungkan ke repositori GitHub anda
 git remote add origin https://github.com/<USERNAME-ANDA>/<NAMA-REPOSITORI>.git
 
-# 6. Tolak kod ke GitHub
+# Tolak kod ke GitHub
 git push -u origin main
 ```
 
-#### Langkah 3: Aktifkan GitHub Pages di GitHub
-1. Di halaman repositori GitHub anda, klik tab **Settings** (di bar menu atas).
-2. Di menu sebelah kiri, pilih **Pages** (bawah seksyen *Code and automation*).
-3. Di bawah bahagian **Build and deployment**:
-   - Pada pilihan **Source**, tukar daripada *Deploy from a branch* kepada **GitHub Actions**.
-4. Selesai! GitHub Actions akan secara automatik membina (*build*) dan melancarkan laman web anda setiap kali anda menolak (*push*) perubahan ke cawangan `main`.
-5. Anda boleh melihat status deployment di tab **Actions**. Selepas ~1 minit, URL laman web anda akan dipaparkan (contoh: `https://<USERNAME-ANDA>.github.io/<NAMA-REPOSITORI>/`).
+---
+
+#### 3. Tetapkan GitHub Pages di GitHub Repository Settings
+
+1. Buka repositori anda di [GitHub.com](https://github.com).
+2. Tekan tab **Settings** (di menu atas repositori).
+3. Di menu sebelah kiri, klik **Pages** (di bawah bahagian *Code and automation*).
+4. Di bawah **Build and deployment**:
+   - **Source**: Pastikan dipilih **Deploy from a branch**.
+   - **Branch**: Pilih **`main`**.
+   - **Folder**: Tukar daripada `/(root)` kepada **`/docs`**.
+5. Klik butang **Save**.
+
+---
+
+### 🌐 Selesai!
+GitHub Pages akan terus menyajikan laman web anda daripada folder `docs` di cawangan `main` tanpa perlu menunggu GitHub Actions! Laman web anda akan aktif di:
+```
+https://<USERNAME-ANDA>.github.io/<NAMA-REPOSITORI>/
+```
 
 ---
 
